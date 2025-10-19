@@ -1,4 +1,4 @@
-## weather-agent-template
+## python-template
 
 This repository is a Copier template for a minimal Python CLI app. It generates a small
 "weather" sample with zero external API dependencies.
@@ -15,7 +15,7 @@ uvx --from copier copier copy --force \
   -d project_slug="my-app" \
   -d package_name="my_app" \
   -d python_version="3.10" \
-  /home/reoring/Sync/dev/weather-agent /tmp/my-app
+  gh:reoring/python-template /tmp/my-app
 
 cd /tmp/my-app
 uv sync

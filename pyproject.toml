@@ -1,5 +1,5 @@
 [project]
-name = "weather-agent-template"
+name = "python-template"
 version = "0.1.0"
 description = "Copier template for a minimal agent app"
 readme = "README.md"
