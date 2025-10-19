@@ -1,0 +1,60 @@
+[project]
+name = "{{ cookiecutter.project_slug if cookiecutter is defined else project_slug }}"
+version = "0.1.0"
+description = "{{ cookiecutter.description if cookiecutter is defined else description }}"
+readme = "README.md"
+requires-python = ">={{ cookiecutter.python_version if cookiecutter is defined else python_version }}"
+
+dependencies = []
+
+[tool.uv]
+package = true
+
+[tool.setuptools]
+packages = [
+  "{{ (cookiecutter.package_name if cookiecutter is defined else package_name) }}",
+]
+
+[project.scripts]
+{{ cookiecutter.project_slug if cookiecutter is defined else project_slug }} = "{{ (cookiecutter.package_name if cookiecutter is defined else package_name) }}.main:main_entry"
+
+[dependency-groups]
+dev = ["ruff==0.6.0", "poethepoet>=0.25", "pre-commit>=3.7,<4"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "basic"
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+[tool.ruff]
+target-version = "py{{ (cookiecutter.python_version if cookiecutter is defined else python_version)|replace('.', '') }}"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = []
+fixable = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.poe.tasks.lint]
+shell = "ruff check ${PY_SRCS:-.} && ruff format --check ${PY_SRCS:-.}"
+
+[tool.poe.tasks.format]
+shell = "ruff format ${PY_SRCS:-.}"
+
+[tool.poe.tasks.fix]
+shell = "ruff check ${PY_SRCS:-.} --fix && ruff format ${PY_SRCS:-.}"
+
+[tool.poe.tasks.precommit-install]
+shell = "pre-commit install"
+
+[tool.poe.tasks.precommit]
+shell = "pre-commit run --all-files"
+
+

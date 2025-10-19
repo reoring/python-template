@@ -1,0 +1,30 @@
+from random import randint
+
+
+def get_weather(location: str) -> str:
+    """Return a fake weather sentence for the given location."""
+    conditions = ["sunny", "cloudy", "rainy", "stormy"]
+    return (
+        f"The weather in {location} is {conditions[randint(0, 3)]} "
+        f"with a high of {randint(10, 30)}°C."
+    )
+
+
+def run_query(query: str) -> str:
+    """Very small router that calls the weather function when appropriate.
+
+    This intentionally avoids external dependencies to keep the example minimal.
+    """
+    # naive heuristic just for demo
+    lower = query.lower()
+    if "weather in" in lower:
+        # extract location after "weather in"
+        try:
+            location = lower.split("weather in", 1)[1].strip().rstrip("?!. ")
+            location = location.title() if location else "Somewhere"
+        except Exception:
+            location = "Somewhere"
+        return get_weather(location)
+    return "I can tell you the weather. Try 'What's the weather in Tokyo?'"
+
+

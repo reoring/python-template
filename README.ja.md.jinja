@@ -1,0 +1,22 @@
+## {{ cookiecutter.project_name if cookiecutter is defined else project_name }}
+
+外部API不要の最小Python CLIサンプルです。`uv` で実行できます。
+
+### 前提
+- Python {{ cookiecutter.python_version if cookiecutter is defined else python_version }}+
+- `uv` がインストール済み（未インストールの場合: `curl -LsSf https://astral.sh/uv/install.sh | sh`）
+
+### セットアップ
+```bash
+uv sync
+```
+
+### 実行
+```bash
+uv run {{ cookiecutter.project_slug if cookiecutter is defined else project_slug }}
+
+# もしくはモジュール実行
+uv run python -m {{ cookiecutter.package_name if cookiecutter is defined else package_name }}.main
+```
+
+

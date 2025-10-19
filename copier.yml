@@ -1,0 +1,94 @@
+_subdirectory: .
+_templates_suffix: .jinja
+_envops:
+  keep_trailing_newline: true
+  block_start_string: "{%"
+  block_end_string: "%}"
+  variable_start_string: "{{"
+  variable_end_string: "}}"
+  comment_start_string: "{#"
+  comment_end_string: "#}"
+
+project_name:
+  type: str
+  help: Human-readable project name
+  default: "My App"
+
+project_slug:
+  type: str
+  help: Repo/package slug (kebab-case)
+  default: "{{ project_name|lower|replace(' ', '-')|replace('_', '-') }}"
+
+package_name:
+  type: str
+  help: Top-level Python package (PEP 8, snake_case)
+  default: "{{ project_name|lower|replace(' ', '_')|replace('-', '_') }}"
+
+description:
+  type: str
+  help: Short description
+  default: "Awesome {{ project_name }}"
+
+license:
+  type: str
+  choices: [MIT, Apache-2.0, BSD-3-Clause, UNLICENSED]
+  default: MIT
+
+author_name:
+  type: str
+  default: ""
+
+author_email:
+  type: str
+  default: ""
+
+python_version:
+  type: str
+  default: "3.10"
+
+tasks:
+  - |
+      # Clean stray template-only dirs from output
+      pkg="{{ cookiecutter.package_name if cookiecutter is defined else package_name }}"
+      if [ -d weather_agent ] && [ "$pkg" != "weather_agent" ]; then
+        # remove only if empty
+        if [ -z "$(ls -A weather_agent 2>/dev/null)" ]; then rmdir weather_agent; fi
+      fi
+      for d in hooks scripts; do
+        if [ -d "$d" ] && [ -z "$(ls -A "$d" 2>/dev/null)" ]; then rmdir "$d"; fi
+      done
+
+_exclude:
+  - .git/
+  - .git
+  - .git/**
+  - copier.yml
+  - .copierignore
+  - .venv/
+  - dist/
+  - build/
+  - __pycache__/
+  - "*.pyc"
+  - "*.pyo"
+  - .mypy_cache/
+  - .pytest_cache/
+  - "*.egg-info/"
+  - .DS_Store
+  - node_modules/
+  - .copier-answers.yml
+  - cookiecutter.json
+  - uv.lock
+  - notes.ja.md
+  - hooks/
+  - weather_agent/
+  - dev
+  - dev/
+  - dev/**
+  - .specstory
+  - .specstory/**
+  - env.example
+  - .env
+  - .env.example
+
+
+

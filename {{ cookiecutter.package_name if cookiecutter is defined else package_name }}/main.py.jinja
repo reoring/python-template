@@ -1,0 +1,16 @@
+from .agent import run_query
+
+
+def main() -> None:
+    print("=== Minimal Weather CLI ===")
+    print("Try: What's the weather in Tokyo?\n")
+
+    query = "What's the weather in Seattle?"
+    print(f"User: {query}")
+    print(f"App:  {run_query(query)}")
+
+
+def main_entry() -> None:
+    main()
+
+

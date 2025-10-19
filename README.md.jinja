@@ -1,0 +1,22 @@
+## {{ cookiecutter.project_name if cookiecutter is defined else project_name }}
+
+Minimal Python CLI sample. No external API required. Run with `uv`.
+
+### Prerequisites
+- Python {{ cookiecutter.python_version if cookiecutter is defined else python_version }}+
+- `uv` installed (if not installed: `curl -LsSf https://astral.sh/uv/install.sh | sh`)
+
+### Setup
+```bash
+uv sync
+```
+
+### Run
+```bash
+uv run {{ cookiecutter.project_slug if cookiecutter is defined else project_slug }}
+
+# Or
+uv run python -m {{ cookiecutter.package_name if cookiecutter is defined else package_name }}.main
+```
+
+
